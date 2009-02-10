@@ -267,32 +267,32 @@ static void Servo_Address_Init(void)
 
 static void Servo_PulseWidth_Init(void)
 {
-    ServoArray.Servo[0].PulseWidth.Default = 1470;
+    ServoArray.Servo[0].PulseWidth.Default = 1500;
     ServoArray.Servo[0].PulseWidth.Max = 2500;
     ServoArray.Servo[0].PulseWidth.Min = 500;
     ServoArray.Servo[0].PulseWidth.Inc = 1;
 
-    ServoArray.Servo[1].PulseWidth.Default = 1480;
-    ServoArray.Servo[1].PulseWidth.Max = 2000;
-    ServoArray.Servo[1].PulseWidth.Min = 1300;
+    ServoArray.Servo[1].PulseWidth.Default = 1500;
+    ServoArray.Servo[1].PulseWidth.Max = 2500;
+    ServoArray.Servo[1].PulseWidth.Min = 500;
     ServoArray.Servo[1].PulseWidth.Inc = 1;
 
-    ServoArray.Servo[2].PulseWidth.Default = 1480;
+    ServoArray.Servo[2].PulseWidth.Default = 1500;
     ServoArray.Servo[2].PulseWidth.Max = 2500;
     ServoArray.Servo[2].PulseWidth.Min = 500;
     ServoArray.Servo[2].PulseWidth.Inc = 1;
 
-    ServoArray.Servo[3].PulseWidth.Default = 1510;
+    ServoArray.Servo[3].PulseWidth.Default = 1500;
     ServoArray.Servo[3].PulseWidth.Max = 2500;
     ServoArray.Servo[3].PulseWidth.Min = 500;
     ServoArray.Servo[3].PulseWidth.Inc = 1;
 
-    ServoArray.Servo[4].PulseWidth.Default = 1460;
-    ServoArray.Servo[4].PulseWidth.Max = 2000;
-    ServoArray.Servo[4].PulseWidth.Min = 1300;
+    ServoArray.Servo[4].PulseWidth.Default = 1500;
+    ServoArray.Servo[4].PulseWidth.Max = 2500;
+    ServoArray.Servo[4].PulseWidth.Min = 500;
     ServoArray.Servo[4].PulseWidth.Inc = 1;
 
-    ServoArray.Servo[5].PulseWidth.Default = 1460;
+    ServoArray.Servo[5].PulseWidth.Default = 1500;
     ServoArray.Servo[5].PulseWidth.Max = 2500;
     ServoArray.Servo[5].PulseWidth.Min = 500;
     ServoArray.Servo[5].PulseWidth.Inc = 1;
@@ -343,8 +343,8 @@ static void IO_Init(void)
         EICRB |= ((1<<ISC40) | (1<<ISC41) | (1<<ISC50) | (1<<ISC51));
 
         /* Enable external interrupt pins 0:5 */
-        //EIMSK |= ((1<<INT0) | (1<<INT1) | (1<<INT2) | (1<<INT3) | (1<<INT4) | (1<<INT5)); 
-        
+        EIMSK |= ((1<<INT0) | (1<<INT1) | (1<<INT2) | (1<<INT3) | (1<<INT4) | (1<<INT5)); 
+
         /* All servo external interrupts are disabled initially */
         ServoArray.Header.ActiveServos = 0;
 
