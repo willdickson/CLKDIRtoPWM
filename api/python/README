@@ -1,0 +1,19 @@
+clkdirpwm
+=============
+
+clkdirpwm provides a control interface for the at90usb based
+clock and direction to pwm generator. 
+
+
+Installation
+
+   * Installation instructions can be found in the INSTALL file.  
+
+Examples
+
+   * Examples demonstrating how to use clkdirpwm can be found in 
+     the examples directory. 
+     
+Author
+
+   * Peter Polidoro (polidoro@caltech.edu)

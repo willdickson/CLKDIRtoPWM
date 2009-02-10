@@ -1,0 +1,18 @@
+CLKDIRtoPWM/firmware
+====================
+
+provides a firmware for device using the Ateml at90usb1287 
+microcontroller which converts clock and direction commands to 
+pwm signals suitable for use with RC-servos.
+
+Installation
+
+   * Installation instructions can be found in the INSTALL file.  
+     
+Author
+
+   * Will Dickson (wbd@caltech.edu)
+
+
+CLKDIRtoPWM may be freely distributed and modified in accordance with
+the BSD license. 

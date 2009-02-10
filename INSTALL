@@ -1,0 +1,16 @@
+CLKDIRtoPWM installation instructions 
+===================================== 
+Firmware:
+ 
+  * Installation instructions and requirements for building the
+    firmware can be found in the INSTALL file in the firmware
+    directory.
+
+Python API: 
+
+  * Installation instructions for the python API and the commandline
+    interface can be found in the INSTALL file in the api/python
+    directory.
+
+
+
