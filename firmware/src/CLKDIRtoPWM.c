@@ -459,25 +459,28 @@ static void PWM_Update(volatile uint8_t ServoAddress)
     uint8_t Dir;
     uint16_t PW;
   
-    /* Get direction */
-    Dir = *ServoArray.Servo[ServoAddress].Address.DirReg & (1 << ServoArray.Servo[ServoAddress].Address.DirPin);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { 
 
-    if (Dir == REVERSE) {
-        ServoArray.Servo[ServoAddress].PulseWidth.Value -= ServoArray.Servo[ServoAddress].PulseWidth.Inc;
-    }
-    else {
-        ServoArray.Servo[ServoAddress].PulseWidth.Value += ServoArray.Servo[ServoAddress].PulseWidth.Inc;
-    }
-
-    /* Clamp output between min and max values */
-    if (ServoArray.Servo[ServoAddress].PulseWidth.Value < ServoArray.Servo[ServoAddress].PulseWidth.Min) {
-        PW = ServoArray.Servo[ServoAddress].PulseWidth.Min;
-    }
-    else if (ServoArray.Servo[ServoAddress].PulseWidth.Value > ServoArray.Servo[ServoAddress].PulseWidth.Max) {
-        PW = ServoArray.Servo[ServoAddress].PulseWidth.Max;
-    }
-    else {
-        PW = ServoArray.Servo[ServoAddress].PulseWidth.Value;
+        /* Get direction */
+        Dir = *ServoArray.Servo[ServoAddress].Address.DirReg & (1 << ServoArray.Servo[ServoAddress].Address.DirPin);
+    
+        if (Dir == REVERSE) {
+            ServoArray.Servo[ServoAddress].PulseWidth.Value -= ServoArray.Servo[ServoAddress].PulseWidth.Inc;
+        }
+        else {
+            ServoArray.Servo[ServoAddress].PulseWidth.Value += ServoArray.Servo[ServoAddress].PulseWidth.Inc;
+        }
+    
+        /* Clamp output between min and max values */
+        if (ServoArray.Servo[ServoAddress].PulseWidth.Value < ServoArray.Servo[ServoAddress].PulseWidth.Min) {
+            PW = ServoArray.Servo[ServoAddress].PulseWidth.Min;
+        }
+        else if (ServoArray.Servo[ServoAddress].PulseWidth.Value > ServoArray.Servo[ServoAddress].PulseWidth.Max) {
+            PW = ServoArray.Servo[ServoAddress].PulseWidth.Max;
+        }
+        else {
+            PW = ServoArray.Servo[ServoAddress].PulseWidth.Value;
+        }
     }
 
     /* Set new pulse width value */
