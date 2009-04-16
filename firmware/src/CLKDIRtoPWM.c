@@ -163,6 +163,11 @@ TASK(USB_ProcessPacket)
                         USBPacketIn.PulseWidthArray[1].Default = 69;    
                     }
                     break;
+                case USB_CMD_PWM_SET_TO_DEFAULT:
+                    {
+                        Set_PWM_To_Default();
+                    }
+                    break;
                 default:    
                     {
                     }
@@ -485,6 +490,19 @@ static void PWM_Update(volatile uint8_t ServoAddress)
 
     /* Set new pulse width value */
     REG_16bit_Write(ServoArray.Servo[ServoAddress].Address.Timer,TIMER_RES*PW);
+}
+
+// Sets all pwm signal to their default values
+static void Set_PWM_To_Default(void)
+{
+    uint8_t i;
+    uint16_t PW;
+
+    for (i=0; i<NUM_SERVO; i++) {
+        ServoArray.Servo[i].PulseWidth.Value = ServoArray.Servo[i].PulseWidth.Default;
+        PW = ServoArray.Servo[i].PulseWidth.Value;
+        REG_16bit_Write(ServoArray.Servo[i].Address.Timer,TIMER_RES*PW);
+    }
 }
 
 ISR(INT0_vect) {

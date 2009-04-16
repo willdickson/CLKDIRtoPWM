@@ -33,6 +33,7 @@ USB_CMD_SERVO_READ = 1
 USB_CMD_SERVO_WRITE = 2
 USB_CMD_SERVO_ACTIVATE = 3
 USB_CMD_PWM_TOGGLE = 4
+USB_CMD_PWM_SET_TO_DEFAULT = 5
 USB_CMD_AVR_RESET = 200
 USB_CMD_AVR_DFU_MODE = 201
 USB_CMD_TEST = 251
@@ -175,6 +176,13 @@ class clkdirpwm_device:
         _check_cmd_id(USB_CMD_AVR_RESET, cmd_id)
         return
 
+    def set_pwm_to_default(self):
+        self.output_buffer[0] = chr(USB_CMD_PWM_SET_TO_DEFAULT%0x100)
+        data = self._send_and_receive()
+        cmd_id = ord(data[0])
+        _check_cmd_id(USB_CMD_PWM_SET_TO_DEFAULT, cmd_id)
+        return
+
 def _check_cmd_id(expected_id,received_id):
     if not expected_id == received_id:
         msg = "received incorrect command ID %d expected %d"%(received_id,expected_id)
@@ -215,6 +223,9 @@ Examples:
   %prog dfu-mode
   Places at90usb device into dfu programming mode.
 
+  %prog pwm-to-default
+  Sets all pwm signals to thier default values.
+
 """
 
 def clkdirpwm_main():
@@ -253,6 +264,9 @@ def clkdirpwm_main():
 
     elif command=='dfu-mode':
         dfu_mode(options)
+
+    elif command=='pwm-to-default':
+        set_pwm_to_default(options)
         
     else:
         print 'E: uknown command %s'%(command,)
@@ -268,6 +282,26 @@ def dfu_mode(options):
 
     vprint('entering dfu mode ... ',v, comma=True)
     dev.enter_dfu_mode()
+    vprint('done',v)
+           
+    # Close device
+    vprint('closing device ... ', v, comma=True)
+    dev.close()
+    vprint('done',v)
+    return
+
+def set_pwm_to_default(options):
+    try:
+        v = options.verbose  
+    except:
+        v = False
+    # Open device
+    vprint('opening device ... ',v,comma=True)
+    dev = clkdirpwm_device()
+    vprint('done',v)
+
+    vprint('setting pwms to default values ... ',v, comma=True)
+    dev.set_pwm_to_default()
     vprint('done',v)
            
     # Close device
