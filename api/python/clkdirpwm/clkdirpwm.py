@@ -139,7 +139,7 @@ class clkdirpwm_device:
     
     def _send_output(self,timeout=9999):
         buf = self.output_buffer # shorthand
-        print 'write', [ord(b) for b in buf]
+        #print 'write', [ord(b) for b in buf]
         val = usb.bulk_write(self.libusb_handle, USB_BULKOUT_EP_ADDRESS, buf, timeout)
         return val
 
@@ -147,7 +147,7 @@ class clkdirpwm_device:
         buf = self.input_buffer
         try:
             val = usb.bulk_read(self.libusb_handle, USB_BULKIN_EP_ADDRESS, buf, timeout)
-            print 'read', [ord(b) for b in buf]
+            #print 'read', [ord(b) for b in buf]
             data = [x for x in buf]
         except usb.USBNoDataAvailableError:
             data = None
